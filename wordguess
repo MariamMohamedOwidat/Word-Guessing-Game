@@ -1,0 +1,75 @@
+import random
+from tabulate import tabulate 
+import sys
+
+
+options=[ 
+    ["1","Yes"], 
+    ["2","Exit"]]
+
+table = tabulate( 
+    options, 
+    headers=["Choice", "Options"], 
+    tablefmt="fancy_grid", 
+    numalign="right", 
+    stralign="center",)
+
+words = ["red","blue","apple","crows","audio","crane","grant","band","lumpy","sensory"]
+print("Welcome to a word guessing game")
+
+def main():
+    word = random.choice(words)
+    tries=12
+    gs=["_"]*len(word)
+
+    while tries>0: 
+        u_g=input("Please enter a letter:").lower().strip()
+        if u_g.isalpha() and len(u_g)==1:
+                if u_g in word:
+                     
+                     for ind, letter in enumerate(word):
+                          if u_g==letter:
+                               gs[ind]=u_g
+                               g_s="".join(gs)
+                               
+
+                               if g_s == word:
+                                    print("Correct!! The word is "+word+"!")
+                                    option()
+                               else:
+                                    print(g_s)
+                     
+
+
+                else:
+                     tries-=1
+                     g_s="".join(gs)
+                     if tries>=1:
+                        print(f"Incorrect guess\n",tries,"are left\n",g_s)
+                        continue
+                     else:
+                          print("Your ran out tries....")
+                          option()
+            
+
+        else:
+             print("Please enter a single letter")
+             continue 
+                              
+                         
+        
+def option():
+     print(table)
+     opt=input("Would you like to play again? ")
+     while True:
+        if opt=="1":
+            main()
+        elif opt=="2":
+             sys.exit("Thank you for playing!")
+        else:
+             print("Invalid value")
+     
+          
+
+if __name__=="__main__":
+    main()  
